@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import products from '../../../backend/data/products';
+import products from '../products';
 
 const ProductScreen = () => {
   const { id } = useParams();
