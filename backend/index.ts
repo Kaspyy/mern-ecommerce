@@ -1,9 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import products from './data/products';
+import connectDB from './config/db';
 import cors from 'cors';
 
 dotenv.config();
+
+connectDB();
 
 const app: Express = express();
 const port = process.env.PORT;
