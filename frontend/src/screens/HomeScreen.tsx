@@ -1,32 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
+import { listProducts } from '../actions/productActions';
 import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
-import axios from 'axios';
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const dispatch = useDispatch<any>();
+  const productList = useSelector((state: any) => state.productList);
+  const { loading, error, products } = productList;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products');
-
-      setProducts(data);
-    };
-
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map(product => (
-          <Col key={product._id} sm={12} md={6} lg={4}>
-            <ProductCard product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
+        <Row>
+          {products.map((product: Product) => (
+            <Col key={product._id} sm={12} md={6} lg={4}>
+              <ProductCard product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };
