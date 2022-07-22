@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { Product } from '../types';
+import { Product } from '../../types';
 import Rating from './Rating';
 
 const ProductCard = ({ product }: { product: Product }) => {
