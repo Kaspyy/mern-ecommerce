@@ -1,24 +1,37 @@
+import { Action } from 'redux';
 import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { Cart } from '../types';
 
-export const cartReducer = (state = { cartItems: [] }, action: any) => {
+export const cartReducer = (
+  state: Cart = { cartItems: [], total: 0 },
+  action: any
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
-      const item = action.payload;
+      const newItem = action.payload;
 
-      const existingItem = state.cartItems.find(
-        (cartItem: any) => cartItem.id === item.id
+      let existingItem: any;
+
+      existingItem = state.cartItems.find(
+        (itemInCart: any) => itemInCart.productId === newItem.productId
       );
 
       if (existingItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((cartItem: any) =>
-            cartItem.id === item.id
-              ? { ...cartItem, quantity: cartItem.quantity + 1 }
-              : cartItem
+          cartItems: state.cartItems.map((itemInCart: any) =>
+            itemInCart.productId === existingItem.productId
+              ? newItem
+              : itemInCart
           ),
         };
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, newItem],
+        };
       }
+
     default:
       return state;
   }
