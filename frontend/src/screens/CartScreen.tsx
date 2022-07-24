@@ -20,9 +20,7 @@ const CartScreen = () => {
   const { id } = useParams();
   const productId = id;
   const { search } = useLocation();
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const cart: Cart = useAppSelector(state => state.cart);
   const cartItems: CartItem[] = useAppSelector(state => state.cart.cartItems);
 
   const qty = Number(search.split('=')[1]);
