@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/UI/Message';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { Cart, CartItem } from '../types';
@@ -34,7 +34,7 @@ const CartScreen = () => {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (productId: string) => {
-    console.log('removeFromCartHandler', productId);
+    dispatch(removeFromCart(productId));
   };
 
   const checkoutHandler = () => {

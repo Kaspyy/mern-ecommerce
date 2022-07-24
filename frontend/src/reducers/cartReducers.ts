@@ -1,6 +1,5 @@
-import { Action } from 'redux';
-import { CART_ADD_ITEM } from '../constants/cartConstants';
-import { Cart } from '../types';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
+import { Cart, CartItem } from '../types';
 
 export const cartReducer = (
   state: Cart = { cartItems: [], total: 0 },
@@ -10,17 +9,17 @@ export const cartReducer = (
     case CART_ADD_ITEM:
       const newItem = action.payload;
 
-      let existingItem: any;
+      let existingItem: CartItem | undefined;
 
       existingItem = state.cartItems.find(
-        (itemInCart: any) => itemInCart.productId === newItem.productId
+        (itemInCart: CartItem) => itemInCart.productId === newItem.productId
       );
 
       if (existingItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((itemInCart: any) =>
-            itemInCart.productId === existingItem.productId
+          cartItems: state.cartItems.map((itemInCart: CartItem) =>
+            itemInCart.productId === existingItem?.productId
               ? newItem
               : itemInCart
           ),
@@ -31,7 +30,13 @@ export const cartReducer = (
           cartItems: [...state.cartItems, newItem],
         };
       }
-
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (itemInCart: CartItem) => itemInCart.productId !== action.payload
+        ),
+      };
     default:
       return state;
   }
