@@ -10,3 +10,18 @@ export interface Product {
   rating: number;
   numReviews: number;
 }
+
+export interface CartItem {
+  qty: number;
+  countInStock: Number;
+  productId: string;
+  quantity: number;
+  price: number;
+  image: string;
+  name: string;
+}
+
+export interface Cart {
+  cartItems: CartItem[];
+  total: number;
+}
