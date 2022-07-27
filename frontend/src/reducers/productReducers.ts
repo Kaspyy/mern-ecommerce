@@ -11,7 +11,10 @@ import { Product } from '../types';
 
 export const productListReducer = (
   state = { products: [] },
-  action: Action & { payload: Product }
+  action: {
+    type: string;
+    payload?: Product;
+  }
 ) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
@@ -27,7 +30,10 @@ export const productListReducer = (
 
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
-  action: Action & { payload: Product }
+  action: {
+    type: string;
+    payload: Product;
+  }
 ) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
