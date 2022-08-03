@@ -1,4 +1,3 @@
-import { Action } from 'redux';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_FAILURE,
@@ -7,7 +6,7 @@ import {
   PRODUCT_DETAILS_FAILURE,
   PRODUCT_DETAILS_SUCCESS,
 } from '../constants/productConstants';
-import { Product } from '../types';
+import { Product } from '../../types';
 
 export const productListReducer = (
   state = { products: [] },

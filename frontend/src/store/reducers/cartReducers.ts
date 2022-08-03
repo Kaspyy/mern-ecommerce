@@ -1,5 +1,5 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
-import { Cart, CartItem } from '../types';
+import { Cart, CartItem } from '../../types';
 
 export const cartReducer = (
   state: Cart = { cartItems: [], total: 0 },
