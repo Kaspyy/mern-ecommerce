@@ -25,3 +25,18 @@ export interface Cart {
   cartItems: CartItem[];
   total: number;
 }
+
+export interface UserLogin {
+  loading: boolean;
+  error: string;
+  userInfo: User | null;
+}
+
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  password?: string;
+  isAdmin?: boolean;
+  token: string;
+}

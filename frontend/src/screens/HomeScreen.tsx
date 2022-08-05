@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
-import { listProducts } from '../actions/productActions';
+import { listProducts } from '../store/actions/productActions';
 import { Product } from '../types';
 import Loader from '../components/UI/Loader';
 import ProductCard from '../components/Card/ProductCard';

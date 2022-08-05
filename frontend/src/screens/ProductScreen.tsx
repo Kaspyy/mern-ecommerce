@@ -11,7 +11,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../components/Card/Rating';
-import { listProductDetails } from '../actions/productActions';
+import { listProductDetails } from '../store/actions/productActions';
 import Loader from '../components/UI/Loader';
 import Message from '../components/UI/Message';
 

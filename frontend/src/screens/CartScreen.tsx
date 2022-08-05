@@ -9,32 +9,34 @@ import {
   Card,
 } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import { useLocation, useParams } from 'react-router-dom';
+import { addToCart, removeFromCart } from '../store/actions/cartActions';
 import Message from '../components/UI/Message';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { Cart, CartItem } from '../types';
+import { CartItem } from '../types';
 
 const CartScreen = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const productId = id;
   const { search } = useLocation();
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const cart: Cart = useAppSelector(state => state.cart);
-  const cartItems: CartItem[] = useAppSelector(state => state.cart.cartItems);
+  const cartItems: CartItem[] = useAppSelector(
+    state => state.cart['cartItems']
+  );
 
   const qty = Number(search.split('=')[1]);
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      //FIXME: solve this type error
+      dispatch(addToCart(productId, qty) as any);
     }
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (productId: string) => {
-    dispatch(removeFromCart(productId));
+    //FIXME: solve this type error
+    dispatch(removeFromCart(productId) as any);
   };
 
   const checkoutHandler = () => {
@@ -71,8 +73,12 @@ const CartScreen = () => {
                       as='select'
                       value={item.qty}
                       onChange={e =>
+                        // FIXME: solve this type error
                         dispatch(
-                          addToCart(item.productId, Number(e.target.value))
+                          addToCart(
+                            item.productId,
+                            Number(e.target.value)
+                          ) as any
                         )
                       }
                     >
@@ -87,7 +93,8 @@ const CartScreen = () => {
                     <Button
                       type='button'
                       onClick={() =>
-                        dispatch(removeFromCartHandler(item.productId))
+                        // FIXME: solve this type error
+                        dispatch(removeFromCartHandler(item.productId) as any)
                       }
                     >
                       <i className='fas fa-trash'></i>
