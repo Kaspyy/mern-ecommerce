@@ -6,7 +6,7 @@ import Message from '../components/UI/Message';
 import Loader from '../components/UI/Loader';
 import { login } from '../store/actions/userActions';
 import FormContainer from '../components/UI/FormContainer';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks/hooks';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const LoginScreen = () => {
 
   const dispatch = useAppDispatch();
 
-  const userLogin = useSelector((state: any) => state.userLogin);
+  const userLogin = useAppSelector((state: any) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {

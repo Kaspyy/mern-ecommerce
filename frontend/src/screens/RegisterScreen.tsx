@@ -6,7 +6,7 @@ import Message from '../components/UI/Message';
 import Loader from '../components/UI/Loader';
 import { register } from '../store/actions/userActions';
 import FormContainer from '../components/UI/FormContainer';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks/hooks';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -19,7 +19,7 @@ const RegisterScreen = () => {
 
   const dispatch = useAppDispatch();
 
-  const userRegister = useSelector((state: any) => state.userRegister);
+  const userRegister = useAppSelector((state: any) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const RegisterScreen = () => {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type='password'
-            placeholder='confirm Password'
+            placeholder='Confirm Password'
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
