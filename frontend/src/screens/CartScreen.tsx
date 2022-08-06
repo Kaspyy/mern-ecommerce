@@ -119,7 +119,7 @@ const CartScreen = () => {
                 .reduce((acc, item) => acc + item.price * item.qty, 0)
                 .toFixed(2)}
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item className='d-grid gap-2'>
               <Button
                 type='button'
                 className='btn-block'
