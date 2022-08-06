@@ -11,10 +11,11 @@ import { useAppSelector } from '../hooks/hooks';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { redirect } = useParams();
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const userLogin = useAppSelector((state: any) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
