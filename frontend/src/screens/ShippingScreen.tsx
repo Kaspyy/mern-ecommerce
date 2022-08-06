@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import FormContainer from '../components/UI/FormContainer';
+import CheckoutSteps from '../components/Checkout/CheckoutSteps';
 import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../store/actions/cartActions';
 
@@ -14,7 +15,7 @@ const ShippingScreen = () => {
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -23,11 +24,12 @@ const ShippingScreen = () => {
     dispatch(
       saveShippingAddress({ address, city, postalCode, country }) as any
     );
-    navigation('/payment');
+    navigate('/payment');
   };
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='address'>
