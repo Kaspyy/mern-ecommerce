@@ -23,6 +23,7 @@ export interface CartItem {
 
 export interface Cart {
   cartItems: CartItem[];
+  shippingAddress: ShippingAddress;
   total: number;
 }
 
@@ -39,4 +40,11 @@ export interface User {
   password?: string;
   isAdmin?: boolean;
   token: string;
+}
+
+export interface ShippingAddress {
+  address?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
 }

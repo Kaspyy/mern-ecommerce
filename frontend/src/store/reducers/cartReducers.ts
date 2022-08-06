@@ -1,8 +1,12 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from '../constants/cartConstants';
 import { Cart, CartItem } from '../../types';
 
 export const cartReducer = (
-  state: Cart = { cartItems: [], total: 0 },
+  state = { cartItems: [], shippingAddress: {}, total: 0 },
   action: {
     type: string;
     payload: CartItem;
@@ -40,6 +44,11 @@ export const cartReducer = (
           (itemInCart: CartItem) =>
             itemInCart.productId !== action.payload.toString()
         ),
+      };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     default:
       return state;
