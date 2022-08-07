@@ -48,3 +48,15 @@ export interface ShippingAddress {
   postalCode?: string;
   country?: string;
 }
+
+export interface Order {
+  _id?: string;
+  orderItems: any;
+  user?: string;
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+}

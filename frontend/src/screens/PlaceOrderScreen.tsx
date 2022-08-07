@@ -1,23 +1,18 @@
-import { useState } from 'react';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Card,
-  Button,
-  ListGroupItem,
-} from 'react-bootstrap';
+import { useEffect } from 'react';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import Message from '../components/UI/Message';
 import CheckoutSteps from '../components/Checkout/CheckoutSteps';
-import { Link } from 'react-router-dom';
-import { Cart, CartItem } from '../types';
+import { Link, useNavigate } from 'react-router-dom';
+import { CartItem } from '../types';
+import { createOrder } from '../store/actions/orderActions';
 
 const PlaceOrderScreen = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const cart = useAppSelector((state: any) => state.cart);
 
-  // Calculate prices
   const addDecimals = (num: number) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -39,8 +34,29 @@ const PlaceOrderScreen = () => {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
   ).toFixed(2);
+
+  const orderCreate = useAppSelector((state: any) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+  }),
+    [success];
+
   const placeOrderHandler = () => {
-    console.log('Place order clicked');
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      }) as any
+    );
   };
 
   return (
@@ -83,12 +99,13 @@ const PlaceOrderScreen = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/products/${item.productId}`}>
+                          <Link to={`/product/${item.productId}`}>
                             {item.name}
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x ${item.price} = $
+                          {Number(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -127,6 +144,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item className='d-grid gap-2'>
                 <Button
