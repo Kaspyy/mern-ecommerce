@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User } from '../../types';
+import { User } from '../../types/types';
 import {
   USER_DETAILS_FAILURE,
   USER_DETAILS_REQUEST,

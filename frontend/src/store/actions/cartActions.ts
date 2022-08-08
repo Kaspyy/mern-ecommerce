@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ShippingAddress } from '../../types';
+import { ShippingAddress } from '../../types/types';
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,

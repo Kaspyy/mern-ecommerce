@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import Message from '../components/UI/Message';
 import CheckoutSteps from '../components/Checkout/CheckoutSteps';
 import { Link, useNavigate } from 'react-router-dom';
-import { CartItem } from '../types';
+import { CartItem } from '../types/types';
 import { createOrder } from '../store/actions/orderActions';
 
 const PlaceOrderScreen = () => {

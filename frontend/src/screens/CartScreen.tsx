@@ -13,7 +13,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../store/actions/cartActions';
 import Message from '../components/UI/Message';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { CartItem } from '../types';
+import { CartItem } from '../types/types';
 
 const CartScreen = () => {
   const navigate = useNavigate();
