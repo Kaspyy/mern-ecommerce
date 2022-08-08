@@ -50,6 +50,11 @@ export interface ShippingAddress {
 }
 
 export interface Order {
+  createdAt: string;
+  isPaid: boolean;
+  paidAt?: string;
+  isDelivered: boolean;
+  deliveredAt?: string;
   _id?: string;
   orderItems: any;
   user?: string;

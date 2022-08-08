@@ -10,6 +10,9 @@ import {
   ORDER_PAY_FAILURE,
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
+  ORDER_LIST_MY_FAILURE,
+  ORDER_LIST_MY_REQUEST,
+  ORDER_LIST_MY_SUCCESS,
 } from '../constants/orderConstants';
 import { AppDispatch } from '../store';
 
@@ -123,3 +126,37 @@ export const payOrder = (orderId: string, paymentResult: any) => {
     }
   };
 };
+
+export const listMyOrders =
+  () => async (dispatch: AppDispatch, getState: Function) => {
+    try {
+      dispatch({
+        type: ORDER_LIST_MY_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get('/api/orders/myorders', config);
+
+      dispatch({
+        type: ORDER_LIST_MY_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ORDER_LIST_MY_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
