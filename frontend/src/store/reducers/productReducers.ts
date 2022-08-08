@@ -6,7 +6,7 @@ import {
   PRODUCT_DETAILS_FAILURE,
   PRODUCT_DETAILS_SUCCESS,
 } from '../constants/productConstants';
-import { Product } from '../../types';
+import { Product } from '../../types/types';
 
 export const productListReducer = (
   state = { products: [] },

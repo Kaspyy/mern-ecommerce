@@ -13,7 +13,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../store/actions/cartActions';
 import Message from '../components/UI/Message';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { CartItem } from '../types';
+import { CartItem } from '../types/types';
 
 const CartScreen = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const CartScreen = () => {
   };
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    navigate('/login?redirect=/shipping');
   };
 
   return (
@@ -119,7 +119,7 @@ const CartScreen = () => {
                 .reduce((acc, item) => acc + item.price * item.qty, 0)
                 .toFixed(2)}
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item className='d-grid gap-2'>
               <Button
                 type='button'
                 className='btn-block'

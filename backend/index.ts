@@ -5,6 +5,7 @@ import connectDB from './config/db';
 import cors from 'cors';
 import productRoutes from './routes/productRoutes';
 import userRoutes from './routes/userRoutes';
+import orderRoutes from './routes/orderRoutes';
 
 dotenv.config();
 
@@ -23,6 +24,11 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
+
+app.get('/api/config/paypal', (req: Request, res: Response) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
 
 app.use(notFound);
 

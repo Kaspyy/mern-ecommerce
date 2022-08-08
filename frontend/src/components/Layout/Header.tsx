@@ -1,7 +1,7 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { UserLogin } from '../../types';
+import { UserLogin } from '../../types/types';
 import { logout } from '../../store/actions/userActions';
 
 const Header = () => {
