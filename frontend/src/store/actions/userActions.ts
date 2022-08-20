@@ -22,6 +22,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAILURE,
+  USER_UPDATE_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from '../constants/userConstants';
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
 import { AppDispatch } from '../store';
@@ -246,6 +249,40 @@ export const deleteUser = (id: string) => {
     } catch (error: any) {
       dispatch({
         type: USER_DELETE_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+};
+
+export const updateUser = (user: User) => {
+  return async (dispatch: AppDispatch, getState: Function) => {
+    try {
+      dispatch({
+        type: USER_UPDATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+
+      dispatch({ type: USER_UPDATE_SUCCESS });
+      dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+    } catch (error: any) {
+      dispatch({
+        type: USER_UPDATE_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

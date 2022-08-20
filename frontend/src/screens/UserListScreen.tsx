@@ -36,7 +36,7 @@ const UserListScreen = () => {
       navigate('/login');
     }
     distpach(listUsers() as any);
-  }, [distpach, navigate, successDelete]);
+  }, [distpach, navigate, successDelete, userInfo]);
 
   const deleteHandler = (id: string) => {
     if (window.confirm('Are you sure?')) {
@@ -83,7 +83,7 @@ const UserListScreen = () => {
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant='secondary' className='btn-sm'>
                       <i className='fas fa-edit'></i>
                     </Button>
