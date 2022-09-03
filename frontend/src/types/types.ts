@@ -57,7 +57,7 @@ export interface Order {
   deliveredAt?: string;
   _id?: string;
   orderItems: any;
-  user?: string;
+  user?: User;
   shippingAddress: ShippingAddress;
   paymentMethod: string;
   itemsPrice: number;
