@@ -14,8 +14,7 @@ const UserEditScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const { id } = useParams();
-  const userId = id;
+  const { id: userId } = useParams();
 
   const dispatch = useAppDispatch();
 
