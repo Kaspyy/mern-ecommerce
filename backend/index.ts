@@ -4,6 +4,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import cors from 'cors';
+import morgan from 'morgan';
 import productRoutes from './routes/productRoutes';
 import userRoutes from './routes/userRoutes';
 import orderRoutes from './routes/orderRoutes';
@@ -15,6 +16,10 @@ connectDB();
 
 const app: Express = express();
 const port = process.env.PORT;
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(cors());
 
