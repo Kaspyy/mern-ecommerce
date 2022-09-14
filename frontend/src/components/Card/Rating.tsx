@@ -4,8 +4,8 @@ const Rating = ({
   color,
 }: {
   value: number;
-  text: string;
-  color: string;
+  text?: string;
+  color?: string;
 }) => {
   return (
     <div className='rating'>
