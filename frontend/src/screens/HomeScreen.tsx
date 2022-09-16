@@ -6,18 +6,21 @@ import { Product } from '../types/types';
 import Loader from '../components/UI/Loader';
 import ProductCard from '../components/Card/ProductCard';
 import Message from '../components/UI/Message';
+import Paginate from '../components/Layout/Paginate';
 import { useParams } from 'react-router-dom';
 
 const HomeScreen = () => {
   const keyword = useParams<{ keyword: string }>().keyword;
 
+  const pageNumber = useParams<{ pageNumber: string }>().pageNumber;
+
   const dispatch = useDispatch<any>();
   const productList = useSelector((state: any) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(keyword));
-  }, [dispatch, keyword]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <>
@@ -27,13 +30,20 @@ const HomeScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Row>
-          {products.map((product: Product) => (
-            <Col key={product._id} sm={12} md={6} lg={4}>
-              <ProductCard product={product} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {products.map((product: Product) => (
+              <Col key={product._id} sm={12} md={6} lg={4}>
+                <ProductCard product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
       )}
     </>
   );
