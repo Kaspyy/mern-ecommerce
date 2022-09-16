@@ -22,23 +22,25 @@ import axios from 'axios';
 import { AppDispatch } from '../store';
 import { Product } from '../../types/types';
 
-export const listProducts = () => async (dispatch: AppDispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+export const listProducts =
+  (keyword = '') =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get('/api/products');
+      const { data } = await axios.get(`/api/products?keyword=${keyword}`);
 
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error: any) {
-    dispatch({
-      type: PRODUCT_LIST_FAILURE,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error: any) {
+      dispatch({
+        type: PRODUCT_LIST_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listProductDetails =
   (id: string) => async (dispatch: AppDispatch) => {

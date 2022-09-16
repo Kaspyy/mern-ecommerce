@@ -8,7 +8,16 @@ import Product from '../models/productModel';
  * @access public
  */
 const getProducts = asyncHandler(async (req: Request, res: Response) => {
-  const products = await Product.find({});
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  const products = await Product.find({ ...keyword });
 
   res.json(products);
 });
@@ -21,12 +30,12 @@ const getProducts = asyncHandler(async (req: Request, res: Response) => {
 const getProductById = asyncHandler(async (req: Request, res: Response) => {
   const product = await Product.findById(req.params.id);
 
-  if (product) {
-    res.json(product);
-  } else {
+  if (!product) {
     res.status(404);
     throw new Error('Product not found');
   }
+
+  res.json(product);
 });
 
 /**
