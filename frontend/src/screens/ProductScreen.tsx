@@ -19,6 +19,7 @@ import Message from '../components/UI/Message';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../store/constants/productConstants';
 import { Review } from '../types/types';
+import Meta from '../components/UI/Meta';
 
 const ProductScreen = () => {
   const { id } = useParams<{ id: string }>();
@@ -77,6 +78,7 @@ const ProductScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <Meta title={product!.name} />
           <Row>
             <Col md={6}>
               <Image src={product?.image} alt={product?.name} fluid />

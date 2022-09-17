@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { listProducts } from '../store/actions/productActions';
@@ -8,6 +9,7 @@ import ProductCard from '../components/Card/ProductCard';
 import Message from '../components/UI/Message';
 import Paginate from '../components/Layout/Paginate';
 import { useParams } from 'react-router-dom';
+import Meta from '../components/UI/Meta';
 
 const HomeScreen = () => {
   const keyword = useParams<{ keyword: string }>().keyword;
@@ -24,6 +26,12 @@ const HomeScreen = () => {
 
   return (
     <>
+      <Meta />
+      {keyword && (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
