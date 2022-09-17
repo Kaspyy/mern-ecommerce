@@ -72,3 +72,11 @@ export interface PaymentResult {
   update_time: string;
   email_address: string;
 }
+
+export interface Review {
+  createdAt: string;
+  _id: string;
+  name: string;
+  rating: number;
+  comment: string;
+}
